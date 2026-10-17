@@ -20,10 +20,10 @@ vet:
 	go vet ./...
 
 lint:
-	golangci-lint run
+	go run github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.14.0 run
 
 vuln:
-	go run golang.org/x/vuln/cmd/govulncheck@v1.1.4 ./...
+	go run golang.org/x/vuln/cmd/govulncheck@v1.8.0 ./...
 
 # Run each fuzz target for FUZZTIME (default 30s).
 FUZZTIME ?= 30s
