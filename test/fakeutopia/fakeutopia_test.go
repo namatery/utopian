@@ -48,7 +48,7 @@ func post(t *testing.T, url string, body []byte, timeout time.Duration) outcome 
 		o.err = err
 		return o
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	o.status = resp.StatusCode
 	o.body, o.err = io.ReadAll(resp.Body)
 	return o
@@ -177,9 +177,14 @@ func TestHangTimesOutAndCloseReleases(t *testing.T) {
 	body := []byte(`{"method":"sendPayment","token":"` + token + `"}`)
 	released := make(chan error, 1)
 	go func() {
-		resp, err := http.Post(s.URL, "application/json", bytes.NewReader(body))
+		req, err := http.NewRequestWithContext(context.Background(), http.MethodPost, s.URL, bytes.NewReader(body))
+		if err != nil {
+			released <- err
+			return
+		}
+		resp, err := http.DefaultClient.Do(req)
 		if err == nil {
-			resp.Body.Close()
+			_ = resp.Body.Close()
 		}
 		released <- err
 	}()
@@ -245,11 +250,15 @@ func TestRefusedURL(t *testing.T) {
 
 func TestOnlyPostToAPIPath(t *testing.T) {
 	s := New(t, token)
-	resp, err := http.Get(s.URL)
+	req, err := http.NewRequestWithContext(t.Context(), http.MethodGet, s.URL, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
-	resp.Body.Close()
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		t.Fatal(err)
+	}
+	_ = resp.Body.Close()
 	if resp.StatusCode != http.StatusNotFound {
 		t.Fatalf("GET status %d, want 404", resp.StatusCode)
 	}

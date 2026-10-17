@@ -9,6 +9,7 @@
 package fakeutopia
 
 import (
+	"context"
 	"encoding/json"
 	"io"
 	"net"
@@ -311,7 +312,8 @@ func (l *dropListener) Accept() (net.Conn, error) {
 // connecting fails before any byte is sent: the only reliable "not sent".
 func RefusedURL(t testing.TB) string {
 	t.Helper()
-	l, err := net.Listen("tcp", "127.0.0.1:0")
+	var lc net.ListenConfig
+	l, err := lc.Listen(context.Background(), "tcp", "127.0.0.1:0")
 	if err != nil {
 		t.Fatal(err)
 	}

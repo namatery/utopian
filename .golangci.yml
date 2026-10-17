@@ -9,6 +9,19 @@ linters:
     - misspell
     - noctx
     - unconvert
+  settings:
+    errcheck:
+      exclude-functions:
+        # Write errors to a terminal or an HTTP client cannot be handled
+        # usefully; callers that care write through a checked path.
+        - fmt.Fprint
+        - fmt.Fprintf
+        - fmt.Fprintln
+
+issues:
+  # Report every finding, not only the first few of each kind.
+  max-issues-per-linter: 0
+  max-same-issues: 0
 
 formatters:
   enable:

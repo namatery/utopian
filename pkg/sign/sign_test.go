@@ -270,7 +270,7 @@ func TestSignRequestRoundTrip(t *testing.T) {
 	}))
 	defer srv.Close()
 
-	req, err := http.NewRequest(http.MethodPost, srv.URL+"/v1/rpc", strings.NewReader(body))
+	req, err := http.NewRequestWithContext(t.Context(), http.MethodPost, srv.URL+"/v1/rpc", strings.NewReader(body))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -281,7 +281,7 @@ func TestSignRequestRoundTrip(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	resp.Body.Close()
+	_ = resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		t.Fatalf("status = %d", resp.StatusCode)
 	}
@@ -298,7 +298,7 @@ func TestSignRequestRoundTrip(t *testing.T) {
 
 func TestSignRequestRejectsQuery(t *testing.T) {
 	for _, url := range []string{"http://x/v1/rpc?a=1", "http://x/v1/rpc?"} {
-		req, _ := http.NewRequest(http.MethodPost, url, nil)
+		req, _ := http.NewRequestWithContext(t.Context(), http.MethodPost, url, nil)
 		if err := SignRequest(req, "uk_test", []byte("secret"), time.Now()); !errors.Is(err, ErrInvalid) {
 			t.Errorf("%s: err = %v, want ErrInvalid", url, err)
 		}

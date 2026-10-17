@@ -13,7 +13,7 @@ import (
 
 // revealAllowed lists the only directories (relative to the module root)
 // whose non-test code may call Reveal, and why.
-var revealAllowed = map[string]string{
+var revealAllowed = map[string]string{ //nolint:gosec // G101 false positive: package paths, not credentials
 	"internal/secret":   "defines Value; encrypts and decrypts with the KEK",
 	"internal/upstream": "sends the upstream token to the Utopia client (ADR-0005)",
 	"internal/auth":     "verifies request signatures with client secrets (ADR-0002)",
