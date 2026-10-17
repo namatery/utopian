@@ -1,0 +1,61 @@
+{
+  "scheme": "UTOPIAN-HMAC-SHA256",
+  "vectors": [
+    {
+      "name": "send payment",
+      "secret_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "key_id": "uk_shop_checkout",
+      "timestamp": 1760440000,
+      "nonce": "Q2FuYXJ5Tm9uY2UtMDAwMQ",
+      "method": "POST",
+      "path": "/v1/rpc",
+      "body": "{\"method\":\"sendPayment\",\"params\":{\"to\":\"9F0A36BC95EA653E05E39C6B6566AAC5B9B31FB41F15C9F4A0B8CCA6927B814F\",\"amount\":\"10\",\"currency\":\"CRP\",\"comment\":\"order-1001\"}}",
+      "body_sha256": "d624ab2eff5aca15bf203fbe3048c4ce70f9dfa51be7da942be8d4bc66668421",
+      "string_to_sign": "UTOPIAN-HMAC-SHA256\nuk_shop_checkout\n1760440000\nQ2FuYXJ5Tm9uY2UtMDAwMQ\nPOST\n/v1/rpc\nd624ab2eff5aca15bf203fbe3048c4ce70f9dfa51be7da942be8d4bc66668421",
+      "signature": "d530274776a9adfab40b03b6aa55ea3b733486ee0ed48bf93fd63b8429bb006d",
+      "header": "UTOPIAN-HMAC-SHA256 KeyId=uk_shop_checkout, Timestamp=1760440000, Nonce=Q2FuYXJ5Tm9uY2UtMDAwMQ, Signature=d530274776a9adfab40b03b6aa55ea3b733486ee0ed48bf93fd63b8429bb006d"
+    },
+    {
+      "name": "empty body",
+      "secret_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "key_id": "uk_reader",
+      "timestamp": 1760440001,
+      "nonce": "AAAAAAAAAAAAAAAAAAAAAA",
+      "method": "GET",
+      "path": "/v1/rpc",
+      "body": "",
+      "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "string_to_sign": "UTOPIAN-HMAC-SHA256\nuk_reader\n1760440001\nAAAAAAAAAAAAAAAAAAAAAA\nGET\n/v1/rpc\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "signature": "4c22ecaa7518eb8878e6de00bfd3f678e3109a3d531155751f0540d86f626682",
+      "header": "UTOPIAN-HMAC-SHA256 KeyId=uk_reader, Timestamp=1760440001, Nonce=AAAAAAAAAAAAAAAAAAAAAA, Signature=4c22ecaa7518eb8878e6de00bfd3f678e3109a3d531155751f0540d86f626682"
+    },
+    {
+      "name": "utf-8 comment",
+      "secret_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "key_id": "uk_shop_checkout",
+      "timestamp": 1760440002,
+      "nonce": "dGVzdC1ub25jZS0wMDAzLXV0Zjg",
+      "method": "POST",
+      "path": "/v1/rpc",
+      "body": "{\"method\":\"sendPayment\",\"params\":{\"to\":\"70AE0077C023EF30\",\"amount\":\"0.000000001\",\"comment\":\"پرداخت سفارش ۱۰۰۲ ✓\"}}",
+      "body_sha256": "5eb0128f818ad254d198652afee8034911d87ce66c07290a63d0f727bda8d313",
+      "string_to_sign": "UTOPIAN-HMAC-SHA256\nuk_shop_checkout\n1760440002\ndGVzdC1ub25jZS0wMDAzLXV0Zjg\nPOST\n/v1/rpc\n5eb0128f818ad254d198652afee8034911d87ce66c07290a63d0f727bda8d313",
+      "signature": "af6bdbd6f59d7ba130273e0cbdaa25865448c511fe13c4c85b1d2f366462ac3a",
+      "header": "UTOPIAN-HMAC-SHA256 KeyId=uk_shop_checkout, Timestamp=1760440002, Nonce=dGVzdC1ub25jZS0wMDAzLXV0Zjg, Signature=af6bdbd6f59d7ba130273e0cbdaa25865448c511fe13c4c85b1d2f366462ac3a"
+    },
+    {
+      "name": "different secret",
+      "secret_hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "key_id": "A-Z_09",
+      "timestamp": 9999999999,
+      "nonce": "-_-_-_-_-_-_-_-_-_-_-_-_-_",
+      "method": "POST",
+      "path": "/v1/rpc",
+      "body": "{\"method\":\"getBalance\",\"params\":{}}",
+      "body_sha256": "a1efdca65bcd764d3c1494015337873a198a09c7f0e4ca415ea3774292c9fe50",
+      "string_to_sign": "UTOPIAN-HMAC-SHA256\nA-Z_09\n9999999999\n-_-_-_-_-_-_-_-_-_-_-_-_-_\nPOST\n/v1/rpc\na1efdca65bcd764d3c1494015337873a198a09c7f0e4ca415ea3774292c9fe50",
+      "signature": "f246462d913b19e3bda75935bd02326536e81dd5e26a3037aa5bbe39e16a7c2a",
+      "header": "UTOPIAN-HMAC-SHA256 KeyId=A-Z_09, Timestamp=9999999999, Nonce=-_-_-_-_-_-_-_-_-_-_-_-_-_, Signature=f246462d913b19e3bda75935bd02326536e81dd5e26a3037aa5bbe39e16a7c2a"
+    }
+  ]
+}

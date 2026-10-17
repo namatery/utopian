@@ -1,0 +1,16 @@
+# Build output
+/bin/
+/dist/
+/utopian
+coverage.out
+
+# Local data and secrets
+/data/
+*.db
+*.db-wal
+*.db-shm
+/secrets/
+
+# Third-party reference material (not redistributed)
+/utopia.html
+/reference/
